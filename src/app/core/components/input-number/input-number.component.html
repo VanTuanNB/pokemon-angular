@@ -1,0 +1,14 @@
+<div class="wrapper-input">
+    <div class="box-input">
+        <input type="number" class="input" [(ngModel)]="value" (ngModelChange)="onChangeInput()"
+            [placeholder]="placeholder" [disabled]="disabled">
+    </div>
+    <div class="wrapper-control">
+        <div class="box-increase" (click)="onIncrease()">
+            <i class="fa-solid fa-angle-up"></i>
+        </div>
+        <div class="box-decrease" (click)="onDecrease()">
+            <i class="fa-solid fa-angle-down"></i>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="wrapper-input-range">
+    <div [ngClass]="{'input-number': type === 'number'}" class="box-input">
+        <input [type]="type" class="first-input" [min]="type === 'number' && min" (input)="onFirstInputChange($event)"
+            [ngModel]="firstInputValue" [placeholder]="placeholders[0]">
+    </div>
+    <div class="wrapper-icon">
+        <i class="fa-solid fa-arrow-right-long"></i>
+    </div>
+    <div [ngClass]="{'input-number': type === 'number'}" class="box-input">
+        <input [type]="type" class="last-input" [max]="type === 'number' && max" (input)="onLastInputChange($event)"
+            [ngModel]="lastInputValue" [placeholder]="placeholders[1]">
+    </div>
+</div>

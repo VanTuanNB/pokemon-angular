@@ -1,0 +1,25 @@
+.property-item {
+    min-width: 24px;
+    max-width: 36px;
+    background-color: #f5f7fd;
+    border-radius: 14px;
+    padding: 4px;
+    font-size: 1.2rem;
+
+    .title {
+        width: 26px;
+        height: 26px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-color: #6bcc41;
+        font-size: 1rem;
+        color: #fff;
+        font-weight: 600;
+    }
+    .value {
+        margin-top: 4px;
+        text-align: center;
+    }
+}

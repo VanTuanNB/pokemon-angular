@@ -1,0 +1,41 @@
+<div #selectElement class="custom-select" [ngClass]="{'focused': isOpenPopper}">
+    <div (click)="onToggleInput($event)">
+        <div class="top-control" [ngClass]="{multiple: mode === 'multiple'}">
+            <ng-container *ngIf="mode === 'multiple'; else singleBlock">
+                <div *ngFor="let multiItem of previewOptions" class="item-label">
+                    <span class="label">{{multiItem.label}}</span>
+                    <i (click)="onUnSelectItem(multiItem)" class="icon fa-solid fa-xmark"></i>
+                </div>
+                <input class="multiple" [placeholder]="previewOptions.length === 0 ? placeholder : ''" type="text"
+                    autocomplete="off" (input)="onSearchKeyword($event)">
+            </ng-container>
+            <ng-template #singleBlock>
+                <span *ngIf="previewOptions[0]" class="single-label">{{previewOptions[0].label}}</span>
+                <input type="text" [placeholder]="previewOptions[0] ? previewOptions[0].label : placeholder"
+                    autocomplete="off" (input)="onSearchKeyword($event)">
+            </ng-template>
+
+            <div class="box-icon">
+                <i class="fa-solid fa-angle-down"></i>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isOpenPopper" #popperElement class="popper">
+        <ul *ngIf="options.length; else emptyOption" class="list-value">
+            <li *ngFor="let item of options; trackBy: trackBy" class="item" [ngClass]="{checked: item.checked}"
+                (click)="onSelectItem(item)">
+                <div class="title">{{item.label}}</div>
+                <span *ngIf="item.checked" class="icon">
+                    <i (click)="onUnSelectItem(item, $event)" class="icon fa-solid fa-xmark"></i>
+                    <i class="fa-solid fa-check"></i>
+                </span>
+            </li>
+        </ul>
+        <ng-template #emptyOption>
+            <div class="empty-option">
+                <i class="icon fa-solid fa-box-open"></i>
+                <span>Empty option</span>
+            </div>
+        </ng-template>
+    </div>
+</div>

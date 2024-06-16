@@ -1,0 +1,44 @@
+.wrapper-input-range {
+    width: 100%;
+    position: relative;
+    background-color: #fff;
+    box-shadow: 0 8px 16px 0 rgba(44, 51, 73, 0.1);
+    border-radius: 6px;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    .box-input {
+        width: 48%;
+        padding: 4px 12px;
+        min-height: 32px;
+
+        &.input-number {
+            position: relative;
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                height: 100%;
+                width: 30px;
+                background-color: #fff;
+                border-top-right-radius: 6px;
+                border-bottom-right-radius: 6px;
+            }
+        }
+
+        input {
+            width: 100%;
+        }
+    }
+
+    .wrapper-icon {
+        width: 4%;
+        font-size: 1.4rem;
+        color: #ccc;
+        transform: translateX(-8px);
+    }
+}

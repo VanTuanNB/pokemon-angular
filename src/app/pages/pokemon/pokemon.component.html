@@ -1,0 +1,112 @@
+<div class="wrapper-pokemon-module">
+    <div class="wrapper-filter-box">
+        <aside class="filter-box">
+            <div class="box-item">
+                <div class="div">
+                    <app-select [items]="types" [(ngModel)]="filterParams.type"
+                        [placeholder]="'Select type'"></app-select>
+                </div>
+            </div>
+            <div class="box-item">
+                <div class="div">
+                    <app-select [items]="legendOptions" [(ngModel)]="filterParams.legendary"
+                        [placeholder]="'Select legendary'"></app-select>
+                </div>
+            </div>
+            <div class="box-item">
+                <div class="div">
+                    <app-input-range [(ngModel)]="filterParams.totals"
+                        [placeholders]="['Min total', 'Max total']"></app-input-range>
+                </div>
+            </div>
+            <div class="box-item">
+                <div class="div">
+                    <app-input-range [(ngModel)]="filterParams.hp"
+                        [placeholders]="['Min hp', 'Max hp']"></app-input-range>
+                </div>
+            </div>
+            <div class="box-item mt-20">
+                <div class="div">
+                    <app-input-range [(ngModel)]="filterParams.speed"
+                        [placeholders]="['Min speed', 'Max speed']"></app-input-range>
+                </div>
+            </div>
+            <div class="box-item mt-20">
+                <div class="div">
+                    <app-input-range [(ngModel)]="filterParams.attack"
+                        [placeholders]="['Min attack', 'Max attack']"></app-input-range>
+                </div>
+            </div>
+            <div class="box-item mt-20">
+                <div class="div">
+                    <app-input-range [(ngModel)]="filterParams.defense"
+                        [placeholders]="['Min defense', 'Max defense']"></app-input-range>
+                </div>
+            </div>
+            <div class="box-item mt-20">
+                <div class="div">
+                    <app-input-range [(ngModel)]="filterParams.spAtk"
+                        [placeholders]="['Min sup attack', 'Max sup attack']"></app-input-range>
+                </div>
+            </div>
+            <div class="box-item mt-20">
+                <div class="div">
+                    <app-input-range [(ngModel)]="filterParams.spDef"
+                        [placeholders]="['Min sup defense', 'Max sup defense']"></app-input-range>
+                </div>
+            </div>
+        </aside>
+        <div class="wrapper-actions">
+            <div class="wrapper-search-name">
+                <app-input [(ngModel)]="filterParams.name" [placeholder]="'Search name'"
+                    (ngModelChange)="onSearchByKeyword()"></app-input>
+            </div>
+            <button class="btn-search" (click)="onSubmitSearch()">Search</button>
+        </div>
+    </div>
+    <div class="layout">
+        <div class="layout-left">
+            <section #lazyLoadElement id="container" (scroll)="onLazyLoad()">
+                <div *ngFor="let pokemon of pokemons; trackBy: trackBy;" class="box-pokemon"
+                    (click)="onSelectPokemon(pokemon)">
+                    <div [ngClass]="{'selected': (pokemon.id === pokemonPreviewing) && pokemon.id === pokemonSelected}"
+                        class="pokemon-item">
+                        <div class="pokemon-header">
+                            <div class="box-index">
+                                <span>#{{pokemon.number}}</span>
+                            </div>
+                            <div *ngIf="!!pokemon.legendary" class="box-legend">
+                                Legendary
+                            </div>
+                        </div>
+                        <div class="pokemon-info">
+                            <h3 class="name">{{pokemon.name}}</h3>
+                            <div class="properties">
+                                <ng-container *ngFor="let property of pokemon.properties; index as propertyIndex">
+                                    <app-property-item
+                                        [ngClass]="{'margin-item': propertyIndex !== 0 || propertyIndex !== pokemons.length - 1}"
+                                        [title]="property.title" [value]="property.value" [bgColor]="property.bgColor"
+                                        [bgColorTitle]="property.bgColorTitle"></app-property-item>
+                                </ng-container>
+                            </div>
+                            <div class="types">
+                                <app-tag [color]="pokemon.type.color" [label]="pokemon.type.name"></app-tag>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="pokemons.length" id="lazy-loading"></div>
+            </section>
+        </div>
+        <div id="layout-right">
+            <div class="info"><app-pokemon-item [pokemonId]="pokemonSelected" [types]="types"
+                    (onPokemonPreviewing)="onPokemonPreviewing($event)"></app-pokemon-item></div>
+        </div>
+    </div>
+    <ng-container *ngIf="!pokemons.length">
+        <div class="empty-pokemon">
+            <h3> Pokemon not found</h3>
+        </div>
+    </ng-container>
+</div>

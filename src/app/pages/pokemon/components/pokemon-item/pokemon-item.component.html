@@ -1,0 +1,24 @@
+<div *ngIf="pokemonInfo.id" id="wrapper-pokemon-detail">
+    <div class="wrapper-image">
+        <img class="image" [src]="pokemonInfo.thumbnail" [alt]="pokemonInfo.name || ''">
+    </div>
+    <div class="wrapper-number mt-12">
+        <span>#{{pokemonInfo.number}}</span>
+    </div>
+    <div class="wrapper-name">
+        <h3>{{pokemonInfo.name}}</h3>
+    </div>
+    <div class="wrapper-type mt-12">
+        <app-tag [color]="pokemonInfo.type.color" [label]="pokemonInfo.type.label"></app-tag>
+        <app-tag *ngIf="pokemonInfo.legendary" style="margin-left: 6px;" [color]="'#d64849'"
+            [label]="'Legendary'"></app-tag>
+    </div>
+    <div class="wrapper-stats mt-12">
+        <div class="title">Stats</div>
+        <div class="wrapper-properties">
+            <app-property-item *ngFor="let property of pokemonInfo.properties" [title]="property.title"
+                [value]="property.value" [bgColor]="property.bgColor"
+                [bgColorTitle]="property.bgColorTitle"></app-property-item>
+        </div>
+    </div>
+</div>

@@ -13,7 +13,7 @@ type LegendOptions = {
 export type ICustomPokemonType = IPokemonType & {
     color: string;
     label: string;
-    value: string;
+    value: number;
 };
 
 type ICustomPokemonModel = IPokemonModel & {
@@ -34,7 +34,7 @@ export class PokemonComponent implements OnInit {
     public filterParams = {
         page: 1,
         size: 21,
-        type: undefined,
+        type: null,
         totals: undefined,
         attack: undefined,
         speed: undefined,
@@ -73,7 +73,7 @@ export class PokemonComponent implements OnInit {
         const params: Partial<IGetListPokemon> = {
             'page[number]': this.filterParams.page,
             'page[size]': this.filterParams.size,
-            'filter[type]': this.filterParams.type ? +this.filterParams.type : undefined,
+            'filter[type]': typeof this.filterParams.type === 'number' ? this.filterParams.type : undefined,
             'filter[min_total]': this.filterParams.totals ? this.filterParams.totals[0] : undefined,
             'filter[max_total]': this.filterParams.totals ? this.filterParams.totals[1] : undefined,
             'filter[min_attack]': this.filterParams.attack ? this.filterParams.attack[0] : undefined,
@@ -109,7 +109,7 @@ export class PokemonComponent implements OnInit {
                     this.types = response.data.map((type) => {
                         return {
                             ...type,
-                            value: type.id.toString(),
+                            value: type.id,
                             name: type.name.toUpperCase(),
                             label: type.name,
                             color: (POKEMON_TYPE_COLOR as any)[type.id as number],
@@ -229,5 +229,9 @@ export class PokemonComponent implements OnInit {
     @DebounceDecorator(500)
     public onSearchByKeyword() {
         this.onSubmitSearch();
+    }
+
+    test() {
+        console.log(this.filterParams);
     }
 }

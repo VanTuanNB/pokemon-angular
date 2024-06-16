@@ -3,14 +3,14 @@
         <aside class="filter-box">
             <div class="box-item">
                 <div class="div">
-                    <app-select [items]="types" [(ngModel)]="filterParams.type"
-                        [placeholder]="'Select type'"></app-select>
+                    <app-select [items]="types" [(ngModel)]="filterParams.type" [placeholder]="'Select type'"
+                        (ngModelChange)="test()"></app-select>
                 </div>
             </div>
             <div class="box-item">
                 <div class="div">
                     <app-select [items]="legendOptions" [(ngModel)]="filterParams.legendary"
-                        [placeholder]="'Select legendary'"></app-select>
+                        [placeholder]="'Select legendary'" (ngModelChange)="test()"></app-select>
                 </div>
             </div>
             <div class="box-item">

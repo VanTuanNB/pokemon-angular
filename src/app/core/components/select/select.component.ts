@@ -16,7 +16,7 @@ import { DebounceDecorator } from '../../decorators/debounce.decorator';
 
 export type ItemModel = {
     label: string;
-    value: string;
+    value: string | number;
 };
 
 type SelectOption = ItemModel & {
@@ -48,7 +48,7 @@ export class SelectComponent {
     @Output() search = new EventEmitter<string>();
 
     public isOpenPopper: boolean = false;
-    private mappingOption: Map<string, SelectOption> = new Map<string, SelectOption>();
+    private mappingOption: Map<string | number, SelectOption> = new Map<string, SelectOption>();
 
     public options: SelectOption[] = [];
     public previewOptions: SelectOption[] = [];
@@ -56,10 +56,6 @@ export class SelectComponent {
 
     @HostListener('document:mousedown', ['$event'])
     onGlobalClick(event: Event): void {
-        console.log(
-            `this.selectElement!.nativeElement.contains(event.target as Node)`,
-            this.selectElement!.nativeElement.contains(event.target as Node),
-        );
         const isConstantPopper =
             !this.popperElement || !this.popperElement.nativeElement.contains(event.target as Node);
         if (!this.selectElement!.nativeElement.contains(event.target as Node) && isConstantPopper) {
@@ -145,7 +141,6 @@ export class SelectComponent {
         if (event) event.stopPropagation();
         this.mappingOption.set(itemSelected.value, { ...itemSelected, checked: false });
         this.options = [...this.mappingOption.values()];
-        console.log('hi', this.options);
         this.previewOptionOnTop();
         this.propagateOnChange(this.options.filter((item) => item.checked).map((item) => item.value));
         this.propagateTouched();

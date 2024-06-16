@@ -230,8 +230,4 @@ export class PokemonComponent implements OnInit {
     public onSearchByKeyword() {
         this.onSubmitSearch();
     }
-
-    test() {
-        console.log(this.filterParams);
-    }
 }
